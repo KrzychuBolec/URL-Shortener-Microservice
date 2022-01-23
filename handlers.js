@@ -11,8 +11,9 @@ let regex = /^(http|https):\/\/[a-zA-z0-9-]*\.[a-z]{1,}/g;
 let generateUrl = (req, res) => {
   let url = req.body.url;
   if (regex.test(url)) {
+      console.log(`Url requested: ${url}`)
     database.push(url);
-    return { original_url: url, short_url: database.length - 1 };
+    res.send ({ original_url: url, short_url: database.length - 1 });
   } else {
     res.send({ error: "invalid url" });
   }
