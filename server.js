@@ -12,7 +12,7 @@ app.use("/public", express.static("/public"));
 
 app.get("/", handlers.getHomepage);
 
-app.get("/api/shorturl/:short_url", handlers.redirect);
+app.get("/api/shorturl/:url", handlers.redirect);
 
 app.post("/api/shorturl", handlers.generateUrl);
 
