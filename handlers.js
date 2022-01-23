@@ -8,34 +8,11 @@ let database = [];
 
 let regex = /^(http|https):\/\/[a-zA-z0-9-]*\.[a-z]{1,}/g;
 
-let urlgenerator = (url, req, res) => {
-  let dataFile = [];
-  let jsonFile = {};
-  fs.readFile("./database.txt", "utf-8", (err, data) => {
-    if (err) {
-      console.log(err + "błąd");
-      return null;
-    } else {
-      dataFile = data.split(",");
-      jsonFile = { original_url: url, short_url: dataFile.length - 1 };
-      res.send(jsonFile);
-      database = dataFile;
-      return;
-    }
-  });
-};
-
 let generateUrl = (req, res) => {
   let url = req.body.url;
   if (regex.test(url)) {
-    fs.writeFile(`./database.txt`, `,${url}`, { flag: "a+" }, (err) => {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log("Saved!");
-        urlgenerator(url, req, res);
-      }
-    });
+    database.push(url);
+    return { original_url: url, short_url: database.length - 1 };
   } else {
     res.send({ error: "invalid url" });
   }
@@ -47,7 +24,10 @@ let redirect = (req, res) => {
     console.log(database[id]);
     res.redirect(database[id]);
   } else {
-    console.log(`couldn't reach ${database[id]}, id proposed = ${id}, parameters = ${req.params}`);
+    console.log(
+      `couldn't reach ${database[id]}, id proposed = ${id}, parameters = ${req.params}`
+    );
+    console.log(`parameters = ${req.params}`);
     res.send({ error: "invalid url" });
   }
 };
