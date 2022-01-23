@@ -47,6 +47,7 @@ let redirect = (req, res) => {
     console.log(database[id]);
     res.redirect(database[id]);
   } else {
+    console.log(`couldn't reach ${database[id]}`)
     res.send({ error: "invalid url" });
   }
 };
