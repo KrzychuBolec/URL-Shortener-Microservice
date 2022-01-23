@@ -43,8 +43,12 @@ let generateUrl = (req, res) => {
 
 let redirect = (req, res) => {
   let id = req.params.short_url;
-  console.log(database[id]);
-  res.redirect(database[id]);
+  if (database[id] != undefined) {
+    console.log(database[id]);
+    res.redirect(database[id]);
+  } else {
+    res.send({ error: "invalid url" });
+  }
 };
 
 let getHomepage = (req, res) => {
