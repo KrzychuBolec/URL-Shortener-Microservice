@@ -6,7 +6,7 @@ require("express");
 
 let database = [];
 
-let regex = /^(http|https):\/\/[a-zA-z0-9]*\.[a-z]{1,}$/g;
+let regex = /^(http|https):\/\/[a-zA-z0-9-]*\.[a-z]{1,}/g;
 
 let urlgenerator = (url, req, res) => {
   let dataFile = [];
