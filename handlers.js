@@ -26,7 +26,7 @@ let urlgenerator = (url, req, res) => {
 };
 
 let generateUrl = (req, res) => {
-  let url = req.body.short_url;
+  let url = req.body.url;
   if (regex.test(url)) {
     fs.writeFile(`./database.txt`, `,${url}`, { flag: "a+" }, (err) => {
       if (err) {
@@ -42,7 +42,7 @@ let generateUrl = (req, res) => {
 };
 
 let redirect = (req, res) => {
-  let id = req.params.short_url;
+  let id = req.params.url;
   if (database[id] != undefined) {
     console.log(database[id]);
     res.redirect(database[id]);
